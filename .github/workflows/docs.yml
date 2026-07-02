@@ -1,0 +1,72 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches: [main]
+    paths: ["spec.md", "docs/**", "mkdocs.yml", "examples/**"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: Dastfox/mdma-python
+          path: _sources/mdma-python
+
+      - uses: actions/checkout@v4
+        with:
+          repository: Dastfox/mdma-typescript
+          path: _sources/mdma-typescript
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install docs tooling and the Python library
+        run: |
+          pip install mkdocs mkdocs-material "mkdocstrings[python]"
+          pip install ./_sources/mdma-python
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate TypeScript API markdown
+        working-directory: _sources/mdma-typescript
+        run: |
+          npm ci
+          npm install --no-save typedoc typedoc-plugin-markdown
+          npx typedoc --plugin typedoc-plugin-markdown --entryFileName index.md --out ../../docs/typescript src/index.ts
+
+      - name: Sync spec.md into docs/ for the mkdocs nav
+        run: cp spec.md docs/spec.md
+
+      - name: Build site
+        run: mkdocs build --strict
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
