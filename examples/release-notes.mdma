@@ -1,0 +1,53 @@
+@inputs
+project:  string
+version:  string
+date:     string
+added:    string[] = []
+changed:  string[] = []
+fixed:    string[] = []
+breaking: boolean  = false
+releases: object[] = []
+
+<slug>
+{{ project }}-{{ version }}
+
+<title>
+{{ project }} {{ version }}
+
+<release-notes>
+# {{ title }} — {{ date }}
+
+{%- if breaking %}
+
+> **Breaking changes included in this release.**
+{%- endif %}
+
+{% if added | length > 0 -%}
+### Added
+{% for item in added -%}
+- {{ item }}
+{% endfor -%}
+{% endif %}
+
+{% if changed | length > 0 -%}
+### Changed
+{% for item in changed -%}
+- {{ item }}
+{% endfor -%}
+{% endif %}
+
+{% if fixed | length > 0 -%}
+### Fixed
+{% for item in fixed -%}
+- {{ item }}
+{% endfor -%}
+{% endif %}
+
+<changelog-entry
+multiple: entry in releases
+>
+
+### {{ entry.version }} — {{ entry.date }}
+{% for item in entry.added -%}
+- {{ item }}
+{% endfor %}

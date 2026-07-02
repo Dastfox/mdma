@@ -1,0 +1,52 @@
+site_name: MDMA
+site_description: Typed Markdown templating — format specification and library reference
+site_url: https://dastfox.github.io/mdma/
+repo_url: https://github.com/Dastfox/mdma
+repo_name: Dastfox/mdma
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+markdown_extensions:
+  - fenced_code
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            docstring_style: google
+
+# Python API / TypeScript API pages are generated at CI build time (see
+# .github/workflows/docs.yml) into docs/python/ and docs/typescript/ — they
+# don't exist in a fresh checkout, so a local `mkdocs serve` needs those
+# directories generated first (see docs/index.md) or will 404 on those links.
+nav:
+  - Home: index.md
+  - Specification: spec.md
+  - Grammar: grammar.md
+  - Filters: filters.md
+  - Examples: examples.md
+  - Python API: python/index.md
+  - TypeScript API: typescript/index.md

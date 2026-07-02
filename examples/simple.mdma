@@ -1,0 +1,17 @@
+@inputs
+name:        string
+description: string
+tags:        string[] = []
+draft:       boolean  = false
+
+<badge-line>
+{% if draft -%}**[DRAFT]** {% endif %}{{ name }}{% if tags | length > 0 %} — {{ tags | join(", ") }}{% endif %}
+
+<body>
+## {{ name }}
+
+{{ description }}
+
+{% if tags | length > 0 -%}
+**Tags:** {{ tags | join(", ") }}
+{%- endif %}

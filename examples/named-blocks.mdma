@@ -1,0 +1,12 @@
+@inputs
+releases: object[] = []
+
+<changelog-by-version
+multiple: entry in releases
+name: entry.version
+>
+
+### {{ entry.version }} — {{ entry.date }}
+{% for item in entry.added -%}
+- {{ item }}
+{% endfor %}
