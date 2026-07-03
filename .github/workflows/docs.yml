@@ -39,6 +39,7 @@ jobs:
         run: |
           pip install mkdocs mkdocs-material "mkdocstrings[python]"
           pip install ./_sources/mdma-python
+          pip install ./pygments-mdma
 
       - uses: actions/setup-node@v4
         with:

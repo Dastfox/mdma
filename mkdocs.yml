@@ -21,13 +21,20 @@ theme:
     - content.code.copy
 
 markdown_extensions:
-  - fenced_code
   - tables
   - toc:
       permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
   - pymdownx.snippets:
       base_path: ["."]
       check_paths: true
+
+# ```mdma fences are colored by the local pygments-mdma/ lexer package (see
+# .github/workflows/docs.yml). Without `pip install ./pygments-mdma`, Pygments
+# doesn't recognize the "mdma" language and those fences render unhighlighted
+# rather than failing the build.
 
 plugins:
   - search
@@ -48,5 +55,6 @@ nav:
   - Grammar: grammar.md
   - Filters: filters.md
   - Examples: examples.md
+  - Playground: playground.md
   - Python API: python/index.md
   - TypeScript API: typescript/index.md

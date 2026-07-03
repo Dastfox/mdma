@@ -1,0 +1,13 @@
+[project]
+name = "pygments-mdma"
+version = "0.1.0"
+description = "Pygments lexer for the MDMA template format"
+requires-python = ">=3.9"
+dependencies = ["Pygments>=2.11"]
+
+[project.entry-points."pygments.lexers"]
+mdmalexer = "pygments_mdma:MdmaLexer"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
