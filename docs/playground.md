@@ -121,6 +121,23 @@ Try `.mdma` templates directly in the browser. Rendering runs entirely client-si
     color: var(--md-code-fg-color);
     background-color: var(--md-code-bg-color);
     pointer-events: none;
+    /* mkdocs-material's `.md-typeset pre` rule out-specificities this class's
+       position/margin (needed to overlay the textarea exactly), and
+       `content.code.copy` injects a copy-button nav plus `.md-typeset
+       pre>code` padding/word-break overrides -- all of which desync this
+       layer from the textarea it must align with character-for-character. */
+    position: absolute !important;
+    inset: 0 !important;
+    margin: 0 !important;
+  }
+  .mdma-editor-highlight .md-code__nav {
+    display: none !important;
+  }
+  .mdma-editor-highlight code {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: inherit !important;
+    word-break: break-word !important;
   }
   .mdma-editor-input {
     background: transparent;
