@@ -88,6 +88,7 @@ editor support live in their own repos:
 |---|---|
 | Python implementation (`python-mdma` on PyPI) | [Dastfox/mdma-python](https://github.com/Dastfox/mdma-python) |
 | TypeScript implementation (`typescript-mdma` on npm) | [Dastfox/mdma-typescript](https://github.com/Dastfox/mdma-typescript) |
+| Go implementation (`github.com/Dastfox/mdma-go`) | [Dastfox/mdma-go](https://github.com/Dastfox/mdma-go) |
 | VSCode extension | [Dastfox/mdma-vscode](https://github.com/Dastfox/mdma-vscode) |
 
 ## Documentation

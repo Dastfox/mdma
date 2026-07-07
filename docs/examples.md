@@ -1,8 +1,8 @@
 # Examples
 
 Four worked `.mdma` files, also used as shared test fixtures by the
-[Python](https://github.com/Dastfox/mdma-python) and
-[TypeScript](https://github.com/Dastfox/mdma-typescript) implementations.
+[Python](https://github.com/Dastfox/mdma-python), [TypeScript](https://github.com/Dastfox/mdma-typescript),
+and [Go](https://github.com/Dastfox/mdma-go) implementations.
 
 ## `simple.mdma`
 
