@@ -49,6 +49,8 @@ plugins:
 # .github/workflows/docs.yml) into docs/python/ and docs/typescript/ — they
 # don't exist in a fresh checkout, so a local `mkdocs serve` needs those
 # directories generated first (see docs/index.md) or will 404 on those links.
+# Go API docs are NOT generated here -- pkg.go.dev builds them automatically
+# from the published module, so the nav entry below is an external link.
 nav:
   - Home: index.md
   - Specification: spec.md
@@ -58,3 +60,4 @@ nav:
   - Playground: playground.md
   - Python API: python/index.md
   - TypeScript API: typescript/index.md
+  - Go API: https://pkg.go.dev/github.com/Dastfox/mdma-go

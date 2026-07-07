@@ -17,12 +17,14 @@ Most templating languages (Jinja, Liquid, Handlebars) target HTML or arbitrary t
 |---|---|---|---|
 | [`python-mdma`](https://pypi.org/project/python-mdma/) | Python 3.9+ | `pip install python-mdma` | [mdma-python](https://github.com/Dastfox/mdma-python) |
 | [`typescript-mdma`](https://www.npmjs.com/package/typescript-mdma) | TypeScript / Node 18+ | `npm install typescript-mdma` | [mdma-typescript](https://github.com/Dastfox/mdma-typescript) |
+| [`mdma-go`](https://pkg.go.dev/github.com/Dastfox/mdma-go) | Go 1.22+ | `go get github.com/Dastfox/mdma-go` | [mdma-go](https://github.com/Dastfox/mdma-go) |
 
-Both are from-scratch, dependency-free implementations of the [grammar](grammar.md), sharing the
-same golden-output test fixtures so their behavior stays in sync.
+All three are from-scratch, dependency-free implementations of the [grammar](grammar.md), sharing
+the same golden-output test fixtures so their behavior stays in sync.
 
 - **[Python API reference](python/index.md)**
 - **[TypeScript API reference](typescript/index.md)**
+- **[Go API reference](https://pkg.go.dev/github.com/Dastfox/mdma-go)** (hosted on pkg.go.dev — Go's docs aren't built into this site)
 
 ## VSCode Extension
 
