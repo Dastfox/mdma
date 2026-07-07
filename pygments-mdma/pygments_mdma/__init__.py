@@ -41,6 +41,7 @@ class MdmaLexer(RegexLexer):
         ],
         "inputs": [
             (r"(?=^<)", Text, "#pop"),
+            (r"\{#", Comment.Multiline, "jinja-comment"),
             (
                 r"([A-Za-z_]\w*)(\s*)(:)(\s*)(string|number|boolean|object)(\[\])?",
                 bygroups(

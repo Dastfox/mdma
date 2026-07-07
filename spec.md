@@ -292,6 +292,57 @@ Properties of objects are accessed with `.`:
 
 Nested access is allowed: `{{ config.server.host }}`.
 
+### 5.7 Comments
+
+`{# ... #}` delimits a comment. Comments are removed at parse time and never
+reach the rendered output:
+
+```
+comment ::= "{#" ["-"] any-text ["-"] "#}"
+```
+
+```mdma
+<release-notes>
+{# TODO: add sponsor section once marketing confirms #}
+# {{ title }} — {{ date }}
+```
+
+**Body is raw text.** A comment ends at the first `#}`; nothing inside it is
+parsed and comments do not nest. This lets you comment out live template code:
+
+```mdma
+{# {% if breaking %} disabled until v3 {% endif %} #}
+```
+
+To output a literal `{#`, interpolate it as a string: `{{ "{#" }}`. An
+unclosed `{#` is a syntax error (section 7.1).
+
+**Full-line comments vanish with their line.** If a line's only non-whitespace
+content is a comment (or the opening/closing lines of a comment spanning
+several lines), the whole line is removed, including its newline — a
+standalone comment never leaves a blank line behind. A comment sharing its
+line with other content just collapses to nothing, leaving the surrounding
+text untouched.
+
+**Whitespace control works like the other tags.** `{#-` strips whitespace
+before the comment and `-#}` after it, exactly as in section 5.3.
+
+**Comments in the `@inputs` section.** A declaration line may end with a
+comment, and full-line comments may appear between declarations. Comments here
+must open and close on the same line:
+
+```mdma
+@inputs
+{# who the page is about #}
+name: string
+tags: string[] = []  {# optional labels #}
+```
+
+**Comments between blocks.** Full-line comments may appear between the
+`@inputs` section and the first block, and between blocks. Comments are **not**
+allowed inside a multi-line block header (between `<` and `>`) or on a
+single-line header.
+
 ---
 
 ## 6. Filters
@@ -348,6 +399,7 @@ Blocks are rendered **in declaration order**. Each block's output is available a
 | Unknown variable | `ReferenceError: '<name>' is not defined` |
 | Filter on wrong type | `FilterError: '<filter>' expects <type>` |
 | `name` modifier used without `multiple` | `SyntaxError: 'name' modifier requires a 'multiple' modifier` |
+| Unclosed comment (`{#` without `#}`) | `SyntaxError: missing '#}'` |
 | Two items produce the same `name` value | `DuplicateName: '<name>' in block '<blockname>'` |
 
 ---

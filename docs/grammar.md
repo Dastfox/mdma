@@ -43,9 +43,10 @@ name-modifier     = "name" , ":" , expression , NEWLINE ;
 block-body        = { template-line | content-line | NEWLINE } ;
 
 (* Template lines (may be mixed with content on the same line) *)
-template-line     = { content-char | interpolation | control-tag } , NEWLINE ;
+template-line     = { content-char | interpolation | control-tag | comment } , NEWLINE ;
 interpolation     = ( "{{" | "{{-" ) , expression , ( "}}" | "-}}" ) ;
 control-tag       = ( "{%" | "{%-" ) , statement , ( "%}" | "-%}" ) ;
+comment           = ( "{#" | "{#-" ) , { any-char } , ( "#}" | "-#}" ) ;
 
 (* Statements inside {% %} *)
 statement         = if-stmt | elif-stmt | else-stmt | endif-stmt
@@ -84,6 +85,7 @@ digit             = "0" | ... | "9" ;
 
 - Whitespace between tokens within a line is flexible (extra spaces are ignored in the inputs section and block headers).
 - The `-` whitespace-control modifier on `{{-`, `-}}`, `{%-`, `-%}` is lexically part of the delimiter and affects the surrounding rendered whitespace, not the expression itself.
+- A `comment` body is raw text ending at the first `#}` — comments do not nest, and nothing inside them is parsed (commented-out tags stay dead). Comments are stripped at parse time; a line whose only non-whitespace content is a comment is removed entirely, newline included. Comments may also appear in the inputs section (full-line between declarations, or trailing a declaration — closing on the same line) and between blocks, but not inside block headers.
 - Block names are case-sensitive. `<Title>` and `<title>` are distinct blocks.
 - `multiple` is a reserved word and may not be used as a block name or input identifier. `name` is *not* reserved (e.g. `name: string` is a valid input) -- it's only recognized as a modifier keyword inside a block's own multi-line header, never as a standalone tag, so it never collides with an input declaration or a block literally named `name`.
 - There is exactly one delimiter for "this is a block declaration": angle brackets. A block with no modifiers is the single-line `simple-header` (`<blockname>`). A block with `multiple` and/or `name` uses `open-header`, which spans multiple lines like an HTML tag with attributes: `<` opens, each modifier is a bare `key: value` line, and a lone `>` closes it.

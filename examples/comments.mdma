@@ -1,0 +1,16 @@
+@inputs
+{# who the page is about #}
+name: string
+tags: string[] = []  {# optional labels #}
+
+{# ---- blocks below ---- #}
+
+<header>
+{# comment lines vanish entirely #}
+## {{ name }}
+
+<tag-line>
+{% if tags | length > 0 -%}
+Tags: {{ tags | join(", ") }}
+{%- endif %}
+{# {{ this }} is never evaluated #}

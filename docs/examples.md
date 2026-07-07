@@ -1,6 +1,6 @@
 # Examples
 
-Three worked `.mdma` files, also used as shared test fixtures by the
+Four worked `.mdma` files, also used as shared test fixtures by the
 [Python](https://github.com/Dastfox/mdma-python) and
 [TypeScript](https://github.com/Dastfox/mdma-typescript) implementations.
 
@@ -19,6 +19,16 @@ Added/Changed/Fixed sections), and a `multiple`-modifier `changelog-entry` block
 
 ```mdma
 --8<-- "examples/release-notes.mdma"
+```
+
+## `comments.mdma`
+
+Shows `{# ... #}` comments everywhere they're allowed — in the inputs section
+(full-line and trailing), between blocks, and inside block bodies. All of them
+are stripped at parse time and never reach the rendered output.
+
+```mdma
+--8<-- "examples/comments.mdma"
 ```
 
 ## `named-blocks.mdma`
